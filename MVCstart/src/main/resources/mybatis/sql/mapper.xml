@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper">
+	<resultMap id="values" type="HomeVO">
+		<result property="num" column="POST_NUM"/>
+		<result property="name" column="POST_NAME"/>
+		<result property="title" column="POST_TITLE"/>
+		<result property="contents" column="POST_CONTENTS"/>
+		<result property="sysdate" column="DATE_TIME"/>
+		<result property="hit" column="HIT"/>
+		<result property="fk" column="FK"/>
+		<result property="num_order" column="NUM_ORDER"/>
+		<result property="deps" column="DEPS"/>
+	</resultMap>
+	<resultMap id="search" type="searchVO">
+		<result property="String"/>
+		<result property="word"/>
+		<result property="first"/>
+		<result property="sec"/>
+	</resultMap>
+	<select id ="selectList" resultMap="values">
+		SELECT POST_NUM, POST_NAME, POST_TITLE, FK, NUM_ORDER, DEPS, HIT
+		FROM POST 
+		ORDER BY FK DESC, NUM_ORDER ASC, DEPS ASC LIMIT #{first},20;
+	</select>
+	<select id ="selectList1" resultMap="values">
+		SELECT POST_NUM, POST_NAME, POST_TITLE, FK, NUM_ORDER, DEPS, HIT
+		FROM POST 
+		WHERE POST_NAME LIKE CONCAT('%',#{word},'%') ORDER BY FK DESC, NUM_ORDER ASC, DEPS ASC LIMIT #{first},20;
+	</select>
+	<select id ="selectList2" resultMap="values">
+		SELECT POST_NUM, POST_NAME, POST_TITLE, FK, NUM_ORDER, DEPS, HIT
+		FROM POST 
+		WHERE POST_TITLE LIKE CONCAT('%',#{word},'%') ORDER BY FK DESC, NUM_ORDER ASC, DEPS ASC LIMIT #{first},20;
+	</select>
+	<select id ="selectList3" resultMap="values">
+		SELECT POST_NUM, POST_NAME, POST_TITLE, FK, NUM_ORDER, DEPS, HIT
+		FROM POST 
+		WHERE POST_CONTENTS LIKE CONCAT('%',#{word},'%') ORDER BY FK DESC, NUM_ORDER ASC, DEPS ASC LIMIT #{first},20;
+	</select>
+</mapper>
